@@ -1,4 +1,4 @@
-# My Angular Project
+# My Angular Project task solutions @ITI
 
 This is an Angular project built for practicing:
 - Components & Directives
