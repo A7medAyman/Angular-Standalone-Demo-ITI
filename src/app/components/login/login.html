@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <h2 class="mb-4">User Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Email</label>
+      <input type="email" formControlName="email"
+             class="form-control"
+             [class.is-invalid]="f['email'].touched && f['email'].invalid"
+             [class.is-valid]="f['email'].touched && f['email'].valid">
+
+      @if(f['email'].touched && f['email'].invalid) {
+        @if(f['email'].errors?.['required']) {
+          <div class="invalid-feedback">Email is required.</div>
+        }
+        @if(f['email'].errors?.['email']) {
+          <div class="invalid-feedback">Invalid email format.</div>
+        }
+      }
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Password</label>
+      <input type="password" formControlName="password"
+             class="form-control"
+             [class.is-invalid]="f['password'].touched && f['password'].invalid"
+             [class.is-valid]="f['password'].touched && f['password'].valid">
+
+      @if(f['password'].touched && f['password'].invalid) {
+        @if(f['password'].errors?.['required']) {
+          <div class="invalid-feedback">Password is required.</div>
+        }
+        @if(f['password'].errors?.['minlength']) {
+          <div class="invalid-feedback">At least 6 characters required.</div>
+        }
+      }
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+      <button type="button" class="btn btn-warning" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <!-- Submitted Data -->
+  @if(submittedData) {
+    <div class="card mt-4 shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title">Submitted Login</h4>
+        <p><strong>Email:</strong> {{ submittedData.email }}</p>
+        <p><strong>Password:</strong> {{ submittedData.password }}</p>
+      </div>
+    </div>
+  }
+</div>

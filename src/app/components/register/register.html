@@ -1,0 +1,118 @@
+<div class="container mt-4">
+  <h2 class="mb-4">User Registration</h2>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Full Name -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Full Name</label>
+      <input type="text" formControlName="fullName"
+             class="form-control"
+             [class.is-invalid]="f['fullName'].touched && f['fullName'].invalid"
+             [class.is-valid]="f['fullName'].touched && f['fullName'].valid">
+      @if(f['fullName'].touched && f['fullName'].invalid) {
+        @if(f['fullName'].errors?.['required']) {
+          <div class="invalid-feedback">Full Name is required.</div>
+        }
+        @if(f['fullName'].errors?.['minlength']) {
+          <div class="invalid-feedback">Must be at least 5 characters.</div>
+        }
+      }
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Email</label>
+      <input type="email" formControlName="email"
+             class="form-control"
+             [class.is-invalid]="f['email'].touched && f['email'].invalid"
+             [class.is-valid]="f['email'].touched && f['email'].valid">
+      @if(f['email'].touched && f['email'].invalid) {
+        @if(f['email'].errors?.['required']) {
+          <div class="invalid-feedback">Email is required.</div>
+        }
+        @if(f['email'].errors?.['email']) {
+          <div class="invalid-feedback">Invalid email format.</div>
+        }
+        @if(f['email'].errors?.['pattern']) {
+          <div class="invalid-feedback">Must match correct email pattern.</div>
+        }
+      }
+    </div>
+
+    <!-- Mobiles -->
+    <div formArrayName="mobiles" class="mb-3">
+      <label class="form-label fw-bold">Mobile Numbers</label>
+      @for(mob of mobiles.controls; let i = $index; track $index) {
+        <div class="mb-2">
+          <input type="text" [formControlName]="i"
+                 class="form-control"
+                 [class.is-invalid]="mob.touched && mob.invalid"
+                 [class.is-valid]="mob.touched && mob.valid">
+          @if(mob.touched && mob.invalid) {
+            @if(mob.errors?.['required']) {
+              <div class="invalid-feedback">Mobile is required.</div>
+            }
+            @if(mob.errors?.['pattern']) {
+              <div class="invalid-feedback">Must be valid (Ex: 01XXXXXXXXX).</div>
+            }
+          }
+          @if(i > 0) {
+            <button type="button" class="btn btn-sm btn-danger mt-1" (click)="removeMobile(i)">Remove</button>
+          }
+        </div>
+      }
+      <button type="button" class="btn btn-sm btn-secondary mt-2" (click)="addMobile()">+ Add another mobile</button>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Password</label>
+      <input type="password" formControlName="password"
+             class="form-control"
+             [class.is-invalid]="f['password'].touched && f['password'].invalid"
+             [class.is-valid]="f['password'].touched && f['password'].valid">
+      @if(f['password'].touched && f['password'].invalid) {
+        @if(f['password'].errors?.['required']) {
+          <div class="invalid-feedback">Password is required.</div>
+        }
+        @if(f['password'].errors?.['minlength']) {
+          <div class="invalid-feedback">At least 6 characters required.</div>
+        }
+      }
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword"
+             class="form-control"
+             [class.is-invalid]="(f['confirmPassword'].touched && f['confirmPassword'].invalid) || registrationForm.errors?.['passwordMismatch']"
+             [class.is-valid]="f['confirmPassword'].touched && f['confirmPassword'].valid && !registrationForm.errors?.['passwordMismatch']">
+      @if(f['confirmPassword'].touched && f['confirmPassword'].invalid) {
+        @if(f['confirmPassword'].errors?.['required']) {
+          <div class="invalid-feedback">Confirm Password is required.</div>
+        }
+      }
+      @if(registrationForm.errors?.['passwordMismatch']) {
+        <div class="invalid-feedback">Passwords do not match.</div>
+      }
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Register</button>
+      <button type="button" class="btn btn-warning" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <!-- Submitted Data -->
+  @if(submittedData) {
+    <div class="card mt-4 shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title">Submitted Data</h4>
+        <pre class="bg-light p-2">{{ submittedData | json }}</pre>
+      </div>
+    </div>
+  }
+</div>

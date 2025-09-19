@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-4 d-flex">
+      <div class="card mb-3 flex-fill" >
+        <img [src]="product.img" class="card-img-top" alt="{{ product.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">Price: {{ product.price }} </p>
+          
+   <button (click)="closeDetails()">Close Details</button>
+</div>
+</div>

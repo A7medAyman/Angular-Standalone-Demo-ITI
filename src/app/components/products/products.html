@@ -1,0 +1,36 @@
+<div class="mb-3">
+  <input type="text" class="form-control" placeholder="Search by product name"
+         [(ngModel)]="search">
+</div>
+
+<div class="row">
+  @for (product of filteredProducts; track product.id) {
+    <div class="col-md-4 d-flex">
+      <div class="card mb-3 flex-fill" appCardshadow>
+        <img [src]="product.img" class="card-img-top" alt="{{ product.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">Price: {{ product.price | currency:'EGP'}} </p>
+          <p class="card-text">{{ Quantity(product.quantity) }}</p>
+          
+
+          <button class="btn btn-success px-5 me-3"(click)="buyProduct(product)"[disabled]="product.quantity === 0">Buy</button>
+
+        <!--  <button class="btn btn-info" (click)="showDetails(product)"> Details </button> -->
+         <button class="btn btn-info btn-sm" (click)="viewDetails(product)">View Details</button>
+         
+        </div>
+        <p class="card-footer">Card: {{ '4861154298743254' | creditCard }}</p>
+      </div>
+    </div>
+  }
+</div>
+<p>Date: {{ currentDate | date:'dd/MMM/yyyy' }}</p>
+
+@if(selectedProduct){
+<app-product-details
+[product]="selectedProduct"
+  (close)="onCloseDetails()">
+</app-product-details>
+}
+
