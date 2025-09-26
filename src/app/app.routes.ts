@@ -8,15 +8,21 @@ import { Products } from './components/products/products';
 import { ProductDetailsRoute } from './components/product-details-route/product-details-route';
 import { Register } from './components/register/register';
 import { Login } from './components/login/login';
+import { ProductsApi } from './components/products-api/products-api';
+import { LoginApi } from './components/login-api/login-api';
+import { authGuardGuard } from './guards/auth-guard-guard';
 
 export const routes: Routes = [
-     { path: '', redirectTo: '/home', pathMatch: 'full' },
+ 
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: Products },
-    {path: 'register', component:Register},
+    { path: 'productsapi', component: ProductsApi },
+    {path: 'register', component:Register,},
     {path: 'login', component:Login},
     { path: 'aboutus', component: AboutUs},
      { path: 'contact', component: ContactUs},
-    {path:'products', component: ShoppingCart},
-    { path: 'products/:id', component: ProductDetailsRoute },
+   {path:'products', component: ShoppingCart},
+    { path: 'products/:id', component: ProductDetailsRoute, canActivate:[authGuardGuard]},
+    {path: 'loginapi', component:LoginApi,},
      { path: '**', component: NotFound }  
 ];

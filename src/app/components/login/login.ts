@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
@@ -6,6 +6,8 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import { Auth } from '../../services/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,12 +17,15 @@ import {
   styleUrl: './login.css'
 })
 export class Login {
+ 
+
   loginForm: FormGroup;
   submittedData: any = null;
+  error: any;
 
   constructor() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+     email: new FormControl('', [
         Validators.required,
         Validators.email
       ]),
@@ -28,6 +33,7 @@ export class Login {
         Validators.required,
         Validators.minLength(6)
       ])
+     
     });
   }
 
@@ -43,5 +49,7 @@ export class Login {
       this.resetForm();
     }
   }
+
+
 
 }

@@ -15,15 +15,27 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/aboutus" routerLinkActive="active">About Us</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!authService.isLoggedIn()">
           <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
         </li>
-        
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/productsapi" routerLinkActive="active">ProductsApi</a>
+        </li>
       </ul>
       <span class="navbar-text mx-4">
          <li class="nav-item">
+          <a class="nav-link " routerLink="/loginapi" routerLinkActive="active">LoginApi</a>
+        </li>
+      </span>
+      <span class="navbar-text mx-4">
+         <li class="nav-item" >
           <a class="nav-link " routerLink="/login" routerLinkActive="active">Login</a>
         </li>
+      </span>
+      <span>
+        <li *ngIf="authService.isLoggedIn()">
+      <button (click)="logout()">Logout</button>
+    </li>
       </span>
     </div>
   </div>

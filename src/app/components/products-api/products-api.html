@@ -1,0 +1,15 @@
+<h2 style="text-align: center;"> Products from fakeapi</h2>
+<div class="row">
+  @for (product of productsapi; track product.id) {
+  <div class="col-md-4 d-flex">
+    <div class="card mb-3 flex-fill" appCardshadow>
+      <img [src]="product.image" class="card-img-top" alt="{{ product.title }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.title }}</h5>
+        <p class="card-text">Price: {{ product.price }}</p>
+        <p class="card-text ">rating {{ product.rating.rate}} based on {{product.rating.count}} reviews</p>
+      </div>
+    </div>
+  </div>
+  }
+</div>

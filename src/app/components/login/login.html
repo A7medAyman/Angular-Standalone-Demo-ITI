@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 col-4">
   <h2 class="mb-4">User Login</h2>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
@@ -11,14 +11,15 @@
              [class.is-invalid]="f['email'].touched && f['email'].invalid"
              [class.is-valid]="f['email'].touched && f['email'].valid">
 
-      @if(f['email'].touched && f['email'].invalid) {
+      @if(f['uesrname'].touched && f['email'].invalid) {
         @if(f['email'].errors?.['required']) {
-          <div class="invalid-feedback">Email is required.</div>
+          <div class="invalid-feedback">email is required.</div>
         }
         @if(f['email'].errors?.['email']) {
           <div class="invalid-feedback">Invalid email format.</div>
-        }
+      
       }
+    }
     </div>
 
     <!-- Password -->
@@ -46,7 +47,7 @@
     </div>
   </form>
 
-  <!-- Submitted Data -->
+  <!-- Submitted Data  -->
   @if(submittedData) {
     <div class="card mt-4 shadow-sm">
       <div class="card-body">
@@ -56,4 +57,5 @@
       </div>
     </div>
   }
+ 
 </div>
